@@ -2,14 +2,23 @@ from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
 from drf_spectacular.types import OpenApiTypes
 from .models import Task
+from category.serializers import CategorySerializer
 
 
 class TaskSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Task
         fields = '__all__'
 
 
+
+class TaskListSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True)
+
+    class Meta:
+        model = Task
+        fields = '__all__'
 class BinaryImageField(serializers.ImageField):
     pass
 

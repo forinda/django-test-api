@@ -36,14 +36,14 @@ class Role(models.Model):
     def insert_roles():
         """Seed default roles."""
         roles = {
-            'User': Permission.FOLLOW,
-            'Moderator': (
+            "User": Permission.FOLLOW,
+            "Moderator": (
                 Permission.FOLLOW
                 | Permission.COMMENT
                 | Permission.WRITE
                 | Permission.MODERATE
             ),
-            'Administrator': (
+            "Administrator": (
                 Permission.FOLLOW
                 | Permission.COMMENT
                 | Permission.WRITE
@@ -91,7 +91,7 @@ class User(AbstractUser, PermissionsMixin):
         max_length=10, choices=Gender.choices, null=True, blank=True
     )
     role = models.ForeignKey(
-        Role, on_delete=models.SET_NULL, null=True, blank=True, related_name='users'
+        Role, on_delete=models.SET_NULL, null=True, blank=True, related_name="users"
     )
 
     objects = UserManager()  # type: ignore
@@ -104,4 +104,3 @@ class User(AbstractUser, PermissionsMixin):
         if self.role is None:
             return False
         return self.role.has_permission(perm)
-

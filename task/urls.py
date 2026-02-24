@@ -4,5 +4,5 @@ from rest_framework.routers import DefaultRouter
 
 
 router = DefaultRouter()
-router.register(r'', TaskListView, basename='task')
+router.register(r"", TaskListView, basename="task")
 urlpatterns = router.urls

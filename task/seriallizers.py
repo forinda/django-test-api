@@ -6,11 +6,9 @@ from category.serializers import CategorySerializer
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = Task
-        fields = '__all__'
-
+        fields = "__all__"
 
 
 class TaskListSerializer(serializers.ModelSerializer):
@@ -18,7 +16,9 @@ class TaskListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = "__all__"
+
+
 class BinaryImageField(serializers.ImageField):
     pass
 
@@ -31,4 +31,4 @@ class TaskCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        exclude = ['created_by', 'created_at', 'updated_at', 'updated_by', 'deleted_at']
+        exclude = ["created_by", "created_at", "updated_at", "updated_by", "deleted_at"]

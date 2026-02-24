@@ -5,7 +5,7 @@ from .models import Category
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        exclude = ['created_by', 'created_at', 'updated_at', 'updated_by', 'deleted_at']
+        exclude = ["created_by", "created_at", "updated_at", "updated_by", "deleted_at"]
 
 
 class CategoryWithTasksSerializer(serializers.ModelSerializer):
@@ -13,8 +13,9 @@ class CategoryWithTasksSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = "__all__"
 
     def get_tasks(self, obj):
         from task.seriallizers import TaskSerializer
+
         return TaskSerializer(obj.tasks.all(), many=True).data

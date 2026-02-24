@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('task', '0004_task_category'),
+        ("task", "0004_task_category"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='task',
-            options={'ordering': ['-created_at'], 'verbose_name_plural': 'Tasks'},
+            name="task",
+            options={"ordering": ["-created_at"], "verbose_name_plural": "Tasks"},
         ),
         migrations.AddField(
-            model_name='task',
-            name='thumbnail',
-            field=models.ImageField(blank=True, null=True, upload_to='thumbnails/'),
+            model_name="task",
+            name="thumbnail",
+            field=models.ImageField(blank=True, null=True, upload_to="thumbnails/"),
         ),
     ]

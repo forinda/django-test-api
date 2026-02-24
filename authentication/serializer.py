@@ -7,7 +7,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'gender']
+        fields = ["id", "email", "password", "gender"]
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
@@ -21,14 +21,14 @@ class LoginSerializer(serializers.Serializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'gender', 'date_joined']
+        fields = ["id", "email", "gender", "date_joined"]
         read_only_fields = fields
 
 
 class UpdateProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['gender']
+        fields = ["gender"]
 
 
 class ForgotPasswordSerializer(serializers.Serializer):

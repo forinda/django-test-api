@@ -3,13 +3,21 @@ from authentication.models import User, Role
 
 
 class UserListSerializer(serializers.ModelSerializer):
-    role_name = serializers.CharField(source='role.name', read_only=True, default=None)
+    role_name = serializers.CharField(source="role.name", read_only=True, default=None)
 
     class Meta:
         model = User
         fields = [
-            'id', 'email', 'first_name', 'last_name', 'gender',
-            'is_active', 'is_staff', 'date_joined', 'role', 'role_name',
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "gender",
+            "is_active",
+            "is_staff",
+            "date_joined",
+            "role",
+            "role_name",
         ]
         read_only_fields = fields
 
@@ -19,7 +27,15 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'first_name', 'last_name', 'gender', 'role']
+        fields = [
+            "id",
+            "email",
+            "password",
+            "first_name",
+            "last_name",
+            "gender",
+            "role",
+        ]
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
@@ -28,7 +44,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'gender', 'role', 'is_active', 'is_staff']
+        fields = ["first_name", "last_name", "gender", "role", "is_active", "is_staff"]
 
 
 class RoleListSerializer(serializers.ModelSerializer):
@@ -36,7 +52,7 @@ class RoleListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Role
-        fields = ['id', 'name', 'permissions', 'permissions_list']
+        fields = ["id", "name", "permissions", "permissions_list"]
         read_only_fields = fields
 
     def get_permissions_list(self, obj):
@@ -46,4 +62,4 @@ class RoleListSerializer(serializers.ModelSerializer):
 class RoleCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
-        fields = ['id', 'name', 'permissions']
+        fields = ["id", "name", "permissions"]

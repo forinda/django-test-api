@@ -6,12 +6,12 @@ from drf_spectacular.utils import extend_schema
 
 
 # Create your views here.
-@extend_schema(tags=['Category'])
+@extend_schema(tags=["Category"])
 class CategoryListView(ModelViewSet):
-    queryset = Category.objects.prefetch_related('tasks').all()
+    queryset = Category.objects.prefetch_related("tasks").all()
     serializer_class = CategoryWithTasksSerializer
 
     def get_serializer_class(self):
-        if self.action in ['create', 'update', 'partial_update']:
+        if self.action in ["create", "update", "partial_update"]:
             return CategorySerializer
         return CategoryWithTasksSerializer

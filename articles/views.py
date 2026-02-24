@@ -18,31 +18,31 @@ from .serializers import (
 from .permissions import CanWriteArticle
 
 
-@extend_schema(tags=['Articles'])
+@extend_schema(tags=["Articles"])
 class ArticleViewSet(ModelViewSet):
     serializer_class = ArticleListSerializer
     permission_classes = [IsAuthenticated, CanWriteArticle]
     parser_classes = (MultiPartParser, FormParser)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['status', 'category', 'author']
-    search_fields = ['title', 'body', 'excerpt', 'slug']
-    ordering_fields = ['created_at', 'updated_at', 'title']
-    ordering = ['-created_at']
+    filterset_fields = ["status", "category", "author"]
+    search_fields = ["title", "body", "excerpt", "slug"]
+    ordering_fields = ["created_at", "updated_at", "title"]
+    ordering = ["-created_at"]
 
     def get_queryset(self):
-        qs = Article.objects.select_related('category', 'author').annotate(
-            likes_count=Count('likes', distinct=True),
-            comments_count=Count('comments', distinct=True),
+        qs = Article.objects.select_related("category", "author").annotate(
+            likes_count=Count("likes", distinct=True),
+            comments_count=Count("comments", distinct=True),
             is_liked=Exists(
-                Like.objects.filter(article=OuterRef('pk'), user=self.request.user)
+                Like.objects.filter(article=OuterRef("pk"), user=self.request.user)
             ),
         )
         return qs
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action == "create":
             return ArticleCreateSerializer
-        if self.action in ['update', 'partial_update']:
+        if self.action in ["update", "partial_update"]:
             return ArticleUpdateSerializer
         return ArticleListSerializer
 
@@ -50,24 +50,24 @@ class ArticleViewSet(ModelViewSet):
         serializer.save(author=self.request.user)
 
     @extend_schema(
-        tags=['Articles'],
-        request={'multipart/form-data': ArticleCreateSerializer},
+        tags=["Articles"],
+        request={"multipart/form-data": ArticleCreateSerializer},
         responses=ArticleSerializer,
     )
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
     @extend_schema(
-        tags=['Articles'],
-        request={'multipart/form-data': ArticleUpdateSerializer},
+        tags=["Articles"],
+        request={"multipart/form-data": ArticleUpdateSerializer},
         responses=ArticleSerializer,
     )
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
 
     @extend_schema(
-        tags=['Articles'],
-        request={'multipart/form-data': ArticleUpdateSerializer},
+        tags=["Articles"],
+        request={"multipart/form-data": ArticleUpdateSerializer},
         responses=ArticleSerializer,
     )
     def partial_update(self, request, *args, **kwargs):

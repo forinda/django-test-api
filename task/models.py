@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils import timezone
+from mixins.model_mixin import AuditModel
 
 # Create your models here.
-class Task(models.Model):
+class Task(AuditModel):
     class Priority(models.TextChoices):
         LOW = 'Low', 'Low'
         MEDIUM = 'Medium', 'Medium'
@@ -10,8 +11,6 @@ class Task(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     completed = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey('category.Category', on_delete=models.CASCADE, related_name='tasks',null=True)
     thumbnail = models.ImageField(upload_to='thumbnails/', null=True, blank=True)
     priority = models.CharField(max_length=10, choices=Priority.choices, default=Priority.LOW)

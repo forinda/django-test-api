@@ -8,6 +8,9 @@ from category.serializers import CategorySerializer
 class ArticleListSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     author_email = serializers.EmailField(source='author.email', read_only=True)
+    likes_count = serializers.IntegerField(read_only=True, default=0)
+    comments_count = serializers.IntegerField(read_only=True, default=0)
+    is_liked = serializers.BooleanField(read_only=True, default=False)
 
     class Meta:
         model = Article

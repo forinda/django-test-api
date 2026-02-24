@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'users.apps.UsersConfig',
     'articles.apps.ArticlesConfig',
+    'comments.apps.CommentsConfig',
+    'likes.apps.LikesConfig',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

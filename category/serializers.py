@@ -5,7 +5,7 @@ from .models import Category
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        exclude = ['created_by', 'created_at', 'updated_at', 'updated_by', 'deleted_at']
 
 
 class CategoryWithTasksSerializer(serializers.ModelSerializer):
